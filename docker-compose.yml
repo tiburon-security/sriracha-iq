@@ -1,0 +1,117 @@
+version: '3'
+
+services:
+
+  elasticsearch:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      xpack.security.enabled: "false"
+    networks:
+      - elk
+
+  logstash:
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      
+      # Ingestor for evtx files - not actually used, but may end up using sometihng like this for pulling in nessus xml reports??
+      - ./data-inputs/evtx:/data_inputs/evtx
+    ports:
+      - "5000:5000"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      PYTHONIOENCODING: "UTF-8"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+  
+  evtx-input:
+    build:
+      context: input-modules/evtx
+    volumes:
+      - ./data-inputs/evtx:/data_inputs/evtx
+    env_file:
+      - ./environment_variables
+    networks:
+      - elk
+      
+  syslog-input:
+    build:
+      context: input-modules/syslog
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./input-modules/syslog/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./data-inputs/syslog:/data_inputs/syslog
+      - ./data-inputs/auth:/data_inputs/auth
+    networks:
+      - elk
+    depends_on:
+      - kibana
+    env_file:
+     - ./environment_variables  
+     
+  auditd-input:
+    build:
+      context: input-modules/auditd
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./input-modules/auditd/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./data-inputs/auditd:/data_inputs/auditd
+    networks:
+      - elk
+    depends_on:
+      - kibana
+    env_file:
+     - ./environment_variables
+     
+  ##
+  ## TODO - create new cron container that deletes logs from filebeat modules; like every 5 mins??
+  ## 
+  
+  # Short-lived container to set up elastic environment
+  setup:
+    build:
+      context: setup
+    env_file:
+      - ./environment_variables
+    networks:
+      - elk
+    depends_on: 
+       - elasticsearch
+    # keep container alive during debugging
+    tty: true
+     
+networks:
+  elk:
+    driver: bridge

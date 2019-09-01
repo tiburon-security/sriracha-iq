@@ -1,0 +1,25 @@
+filebeat.modules:
+
+- module: system
+  syslog:
+    enabled: true
+    var.paths: ["/data_inputs/syslog/*"]
+  auth:
+    enabled: true
+    var.paths: ["/data_inputs/auth/*"]
+  
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  username: "${ELASTIC_USER}"
+  password: "${ELASTIC_PASSWORD}"
+
+setup.kibana:
+  host: "kibana:5601"
+  protocol: "http"
+  username: "${ELASTIC_USER}"
+  password: "${ELASTIC_PASSWORD}"
+  ssl.enabled: false
+  
+setup.ilm.rollover_alias: "linux-syslog"
+setup.dashboards.index: "linux-syslog"
+setup.dashboards.enabled: true

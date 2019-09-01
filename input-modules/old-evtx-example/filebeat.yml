@@ -1,0 +1,20 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /tmp/filebeat_data_inputs/evtx/*
+  exclude_files: [ '\.gz$', '\.bz2$', '\.zip$' ]
+  close_inactive: 5m
+  fields_under_root: true
+  fields:
+    # Custom field for later filter in logstash
+    type: evtx
+    
+  # Ship the entire file as a single "message"
+  multiline.pattern: '.'
+  multiline.match: after
+  multiline.max_lines: 999999999999999
+  multiline.timeout: 600s
+
+  
+output.logstash:
+  hosts: ["logstash:5001"]

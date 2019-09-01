@@ -1,0 +1,4 @@
+watchdog==0.8.2
+elasticsearch==7.0.2
+python-evtx==0.6.1
+xmltodict==0.12.0
