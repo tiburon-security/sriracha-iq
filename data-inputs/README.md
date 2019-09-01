@@ -1,0 +1,1 @@
+This directory contains the subfolders where data will be placed for ingestion. The subfolders have .keep files within them to allow tracking via git.
