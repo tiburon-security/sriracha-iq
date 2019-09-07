@@ -4,7 +4,7 @@ filebeat.modules:
   log:
     enabled: true
     var.paths: ["/data_inputs/auditd/*"]
-  
+ 
 output.elasticsearch:
   hosts: ["http://elasticsearch:9200"]
   username: "${ELASTIC_USER}"
@@ -17,6 +17,4 @@ setup.kibana:
   password: "${ELASTIC_PASSWORD}"
   ssl.enabled: false
   
-setup.ilm.rollover_alias: "linux-auditd"
-setup.dashboards.index: "linux-auditd"
-setup.dashboards.enabled: true
+setup.ilm.rollover_alias: "linux-auditd-${ELASTIC_VERSION}"

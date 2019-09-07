@@ -20,6 +20,4 @@ setup.kibana:
   password: "${ELASTIC_PASSWORD}"
   ssl.enabled: false
   
-setup.ilm.rollover_alias: "linux-syslog"
-setup.dashboards.index: "linux-syslog"
-setup.dashboards.enabled: true
+setup.ilm.rollover_alias: "linux-syslog-${ELASTIC_VERSION}"

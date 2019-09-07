@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /data_inputs/nessus/*
+  multiline.pattern: ' \A.*'
+  multiline.negate: true
+  multiline.match: after
+  multiline.max_lines: 10000000000
+  multiline.timeout: 60
+  tags: ["nessus"]
+  exclude_files: ['.keep']
+
+  
+output.logstash:
+  hosts: ["logstash:5001"]
+  username: "${ELASTIC_USER}"
+  password: "${ELASTIC_PASSWORD}"
+  
+setup.ilm.rollover_alias: "nessus-${ELASTIC_VERSION}"

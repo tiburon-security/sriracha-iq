@@ -44,4 +44,9 @@ Audit daemon logs
 	/var/log/audit/audit.log*
 	
 ### Vulnerability Scan Data:
-- Coming Soon
+
+#### /data-inputs/nessus:
+Nessus vulnerability scan data
+
+	All versions:
+	Export .nessus XML file from Security Center or Nessus

@@ -26,20 +26,22 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
-      
+      - ./data-inputs/nessus:/data_inputs/nessus
       # Ingestor for evtx files - not actually used, but may end up using sometihng like this for pulling in nessus xml reports??
       - ./data-inputs/evtx:/data_inputs/evtx
     ports:
       - "5000:5000"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
       PYTHONIOENCODING: "UTF-8"
     networks:
       - elk
     depends_on:
       - elasticsearch
-
+    env_file:
+     - ./environment_variables  
+     
   kibana:
     build:
       context: kibana/
@@ -93,11 +95,32 @@ services:
     depends_on:
       - kibana
     env_file:
-     - ./environment_variables
+     - ./environment_variables  
      
-  ##
-  ## TODO - create new cron container that deletes logs from filebeat modules; like every 5 mins??
-  ## 
+  nessus-input:
+    build:
+      context: input-modules/nessus
+      args:
+        ELK_VERSION: 7.3.0
+    volumes:
+      - ./input-modules/nessus/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./data-inputs/nessus:/data_inputs/nessus
+    networks:
+      - elk
+    depends_on:
+      - kibana
+    env_file:
+     - ./environment_variables
+
+  input-module-cleanup:
+    build:
+      context: input-modules/cleanup
+    volumes:
+      - ./data-inputs:/data_inputs
+    env_file:
+      - ./environment_variables
+    networks:
+      - elk
   
   # Short-lived container to set up elastic environment
   setup:
@@ -109,8 +132,6 @@ services:
       - elk
     depends_on: 
        - elasticsearch
-    # keep container alive during debugging
-    tty: true
      
 networks:
   elk:

@@ -29,7 +29,7 @@ class EvtxShipper(FileSystemEventHandler):
 		print(event.src_path)
 		
 		# parse evtx file & ship to elastic
-		EvtxToElk.evtx_to_elk(event.src_path, "http://elasticsearch:9200", elk_user=os.environ['ELASTIC_USER'], elk_pass=os.environ['ELASTIC_PASSWORD'], elk_index="evtx")
+		EvtxToElk.evtx_to_elk(event.src_path, "http://elasticsearch:9200", elk_user=os.environ['ELASTIC_USER'], elk_pass=os.environ['ELASTIC_PASSWORD'], elk_index="windows-evtx-{}".format(os.environ['ELASTIC_VERSION']))
 		
 		# delete evtx file
 		try:
