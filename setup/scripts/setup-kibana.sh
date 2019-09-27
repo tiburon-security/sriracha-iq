@@ -12,6 +12,18 @@ done
 
 echo "Kibana server now available."
 
-curl -u $ELASTIC_USER:$ELASTIC_PASSWORD -fsS -X POST $url/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/app/extras/kibana-config.ndjson > /dev/null
+# Tests that the default settings haven't already been set before - this is to prevent the defaults from overwriting
+# user changed upon restarts. Test whether one of the default indexes exists.
+if ! curl -u $ELASTIC_USER:$ELASTIC_PASSWORD -s "$url/api/saved_objects/_find?type=index-pattern&search_fields=title&search=nessus" | grep --quiet "\"total\":1"; then 
+
+    echo "Uploading kibana default saved objects"
+  
+    # Upload default saved objects for dashboards, indexes, and components  
+    curl -u $ELASTIC_USER:$ELASTIC_PASSWORD -fsS -X POST $url/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/app/extras/kibana-config.ndjson > /dev/null
+
+else
+    echo "Default kibana saved objects already uploaded, not reuploading"
+	
+fi
 
 echo "Kibana setup script finished."
