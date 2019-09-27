@@ -14,10 +14,17 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      xpack.security.enabled: "false"
+      xpack.security.enabled: "true"
     networks:
       - elk
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cat/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    env_file:
+     - ./environment_variables 
+     
   logstash:
     build:
       context: logstash/
@@ -26,9 +33,6 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
-      - ./data-inputs/nessus:/data_inputs/nessus
-      # Ingestor for evtx files - not actually used, but may end up using sometihng like this for pulling in nessus xml reports??
-      - ./data-inputs/evtx:/data_inputs/evtx
     ports:
       - "5000:5000"
       - "9600:9600"
@@ -39,6 +43,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    restart: on-failure
     env_file:
      - ./environment_variables  
      
@@ -55,7 +60,9 @@ services:
       - elk
     depends_on:
       - elasticsearch
-  
+    env_file:
+     - ./environment_variables 
+     
   evtx-input:
     build:
       context: input-modules/evtx
@@ -131,8 +138,7 @@ services:
     networks:
       - elk
     depends_on: 
-       - elasticsearch
-     
+       - elasticsearch     
 networks:
   elk:
     driver: bridge

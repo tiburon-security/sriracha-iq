@@ -52,7 +52,8 @@ class EvtxToElk:
     @staticmethod
     def evtx_to_elk(filename, elk_ip, elk_user=None, elk_pass=None, elk_index="hostlogs", bulk_queue_len_threshold=500, metadata={}):
         bulk_queue = []
-        if(elk_user==None or elk_pass==None):
+
+        if(elk_user!=None or elk_pass!=None):
             es = Elasticsearch([elk_ip], http_auth=(elk_user, elk_pass))
         else:
             es = Elasticsearch([elk_ip])
