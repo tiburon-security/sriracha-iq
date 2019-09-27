@@ -17,11 +17,7 @@ services:
       xpack.security.enabled: "true"
     networks:
       - elk
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cat/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
+    restart: on-failure
     env_file:
      - ./environment_variables 
      
@@ -58,6 +54,7 @@ services:
       - "5601:5601"
     networks:
       - elk
+    restart: on-failure
     depends_on:
       - elasticsearch
     env_file:
@@ -68,6 +65,7 @@ services:
       context: input-modules/evtx
     volumes:
       - ./data-inputs/evtx:/data_inputs/evtx
+    restart: on-failure
     env_file:
       - ./environment_variables
     networks:
@@ -84,6 +82,7 @@ services:
       - ./data-inputs/auth:/data_inputs/auth
     networks:
       - elk
+    restart: on-failure
     depends_on:
       - kibana
     env_file:
@@ -99,6 +98,7 @@ services:
       - ./data-inputs/auditd:/data_inputs/auditd
     networks:
       - elk
+    restart: on-failure
     depends_on:
       - kibana
     env_file:
@@ -112,6 +112,7 @@ services:
     volumes:
       - ./input-modules/nessus/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/nessus:/data_inputs/nessus
+    restart: on-failure
     networks:
       - elk
     depends_on:
@@ -124,6 +125,7 @@ services:
       context: input-modules/cleanup
     volumes:
       - ./data-inputs:/data_inputs
+    restart: on-failure
     env_file:
       - ./environment_variables
     networks:
