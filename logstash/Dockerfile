@@ -1,3 +1,3 @@
-ARG ELK_VERSION
+ARG ELASTIC_VERSION
 
-FROM docker.elastic.co/logstash/logstash:${ELK_VERSION}
+FROM docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}

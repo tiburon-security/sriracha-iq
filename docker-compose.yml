@@ -6,7 +6,7 @@ services:
     build:
       context: elasticsearch/
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     ports:
@@ -25,7 +25,7 @@ services:
     build:
       context: logstash/
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -47,7 +47,7 @@ services:
     build:
       context: kibana/
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
@@ -75,7 +75,7 @@ services:
     build:
       context: input-modules/syslog
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./input-modules/syslog/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/syslog:/data_inputs/syslog
@@ -92,7 +92,7 @@ services:
     build:
       context: input-modules/auditd
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./input-modules/auditd/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/auditd:/data_inputs/auditd
@@ -108,7 +108,7 @@ services:
     build:
       context: input-modules/nessus
       args:
-        ELK_VERSION: 7.3.0
+        ELASTIC_VERSION: 7.5.0
     volumes:
       - ./input-modules/nessus/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/nessus:/data_inputs/nessus
