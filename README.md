@@ -1,4 +1,4 @@
-# Sriracha-IQ
+![Architecture Diagram](https://i.imgur.com/OS2nKfx.png)
 
 ## Overview
 This project is an instantiation of the Elastic Stack for the purposes of assessing system security and perofrming audits, a task commonly associated with independent blue teams, threat hunters, security control assessors, and cyber security auditors. It facilitates aggregation and analysis of commonly used log formats to include event logs (Windows & Linux) and vulnerability scanner logs, with more coming soon.
