@@ -1,5 +1,3 @@
-# Sriracha-IQ
-
 ![Architecture Diagram](https://i.imgur.com/OS2nKfx.png)
 
 ## Overview
