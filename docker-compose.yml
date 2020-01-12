@@ -20,7 +20,12 @@ services:
     restart: on-failure
     env_file:
      - ./environment_variables 
-     
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   logstash:
     build:
       context: logstash/
@@ -42,7 +47,12 @@ services:
     restart: on-failure
     env_file:
      - ./environment_variables  
-     
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   kibana:
     build:
       context: kibana/
@@ -59,7 +69,12 @@ services:
       - elasticsearch
     env_file:
      - ./environment_variables 
-     
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   evtx-input:
     build:
       context: input-modules/evtx
@@ -70,7 +85,12 @@ services:
       - ./environment_variables
     networks:
       - elk
-      
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   syslog-input:
     build:
       context: input-modules/syslog
@@ -87,7 +107,12 @@ services:
       - kibana
     env_file:
      - ./environment_variables  
-     
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   auditd-input:
     build:
       context: input-modules/auditd
@@ -103,7 +128,12 @@ services:
       - kibana
     env_file:
      - ./environment_variables  
-     
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   nessus-input:
     build:
       context: input-modules/nessus
@@ -119,7 +149,12 @@ services:
       - kibana
     env_file:
      - ./environment_variables
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   input-module-cleanup:
     build:
       context: input-modules/cleanup
@@ -130,7 +165,12 @@ services:
       - ./environment_variables
     networks:
       - elk
-  
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   # Short-lived container to set up elastic environment
   setup:
     build:
