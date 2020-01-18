@@ -26,8 +26,6 @@ Sample Usage:
 	cat /var/log/secure.log | python linux_logs_add_year.py 2019 > /tmp/auth_log_with_year.log
 
 
-Since the assumption is data
-
 #### /data-inputs/syslog:
 Generic system activity logs
 
