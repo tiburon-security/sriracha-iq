@@ -19,6 +19,15 @@ Windows XML Event Logs
 
 ### Linux Data:
 
+Note: On many falvors of Linux, if you just retrieve logs from the system directly, since the assumption is you can't just point rsyslog to you own collector, the year is ommited in the timestamps. This causes the ingest modules to just assume the current year, which in some cases could end up with events showing up in the future. For example, if the current date is Jan 18th 2020, and the log was retrieved December 1st 2019, the ingested events would show up as various dates in December 2020. If this is an issue for your analysis, there is a quick & dirty Python script for adding years to a log included in /misc/linux_logs_add_year.py; the script is compatible with Python 2.7+.
+
+Sample Usage:
+
+	cat /var/log/secure.log | python linux_logs_add_year.py 2019 > /tmp/auth_log_with_year.log
+
+
+Since the assumption is data
+
 #### /data-inputs/syslog:
 Generic system activity logs
 
