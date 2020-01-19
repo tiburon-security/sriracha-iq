@@ -25,7 +25,6 @@ Sample Usage:
 
 	cat /var/log/secure.log | python linux_logs_add_year.py 2019 > /tmp/auth_log_with_year.log
 
-
 #### /data-inputs/syslog:
 Generic system activity logs
 
@@ -57,3 +56,10 @@ Nessus vulnerability scan data
 
 	All versions:
 	Export .nessus XML file from Security Center or Nessus
+
+### Network Data:
+
+#### /data-inputs/netflow:
+Netflow records
+
+	All ncapd binary files supported by nfdump

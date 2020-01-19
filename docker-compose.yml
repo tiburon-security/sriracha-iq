@@ -33,7 +33,9 @@ services:
         ELASTIC_VERSION: 7.5.0
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./data-inputs/netflow:/data_inputs/netflow/
     ports:
       - "5000:5000"
       - "9600:9600"
@@ -149,6 +151,22 @@ services:
       - kibana
     env_file:
      - ./environment_variables
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"  
+  
+  netflow-input:
+    build:
+      context: input-modules/netflow
+    volumes:
+      - ./data-inputs/netflow:/data_inputs/netflow
+    restart: on-failure
+    env_file:
+      - ./environment_variables
+    networks:
+      - elk
     logging:
       driver: "json-file"
       options:

@@ -1,0 +1,4 @@
+- pipeline.id: nessus
+  path.config: "/usr/share/logstash/pipeline/nessus.conf"
+- pipeline.id: netflow
+  path.config: "/usr/share/logstash/pipeline/netflow.conf"
