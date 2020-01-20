@@ -1,4 +1,4 @@
-![Architecture Diagram](https://i.imgur.com/OS2nKfx.png)
+![Architecture Diagram](https://raw.githubusercontent.com/tiburon-security/sriracha-iq/master/misc/SrirachaIQ_Architecture.png)
 
 ## Overview
 This project is an instantiation of the Elastic Stack for the purposes of assessing system security and perofrming audits, a task commonly associated with independent blue teams, threat hunters, security control assessors, and cyber security auditors. It facilitates aggregation and analysis of commonly used log formats to include event logs (Windows & Linux) and vulnerability scanner logs, with more coming soon.
@@ -62,4 +62,4 @@ Nessus vulnerability scan data
 #### /data-inputs/netflow:
 Netflow records
 
-	All ncapd binary files supported by nfdump
+	All nfcapd binary files supported by nfdump
