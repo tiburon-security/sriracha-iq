@@ -9,6 +9,25 @@ Given this, the project is built in Docker, leveraging docker-compose, facilitat
 ## Data Inputs & their Common Location on target OS's:
 As discussed in the Overview, the assumption is that we are working with data obtained manually & not via some centralized repository, for example manual extraction of evtx files for a Windows endpoint or manual download of the XML-based vulnerability scan report from nessus
 
+## Viewing Data
+
+### Kibana
+
+To use Kibana, access port 80 which is exposed to the docker host. A variety of views, filters, dashboards, and visualizations are preconfigured and installed as part of the SrirachaIQ suite.
+
+http://localhost:80
+
+### Jupyter Lab Notebooks
+
+For more advanced usage & custom analytics, Jupyter Notebooks have been integrated into the environment. The installation comes with basic elasticsearch libraries included & an example is included. The Jupyter Lab environment is exposed to the docker host over port 8888.
+
+Notebooks:
+ - jupyter/notebooks
+ 
+ https://localhost:8888
+
+## Data Inputs / Ingest
+
 ### Windows Data:
 
 #### /data-inputs/evtx:
