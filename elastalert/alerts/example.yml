@@ -1,0 +1,11 @@
+name: Example rule
+type: frequency
+index: windows-evtx*
+num_events: 2
+timeframe:
+    hours: 6
+    
+# Doesn't send an actual alert to outside reciever (i.e. email, slack, or jira)
+alert:
+- command
+command: ["echo", "0"]

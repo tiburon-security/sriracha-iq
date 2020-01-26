@@ -1,3 +1,6 @@
 data-inputs/sample-*
 data-inputs/FILE_AGE.db
 jupyter/notebooks/.ipynb_checkpoints/*
+jupyter/notebooks/.jupyter/*
+jupyter/notebooks/.local/*
+elastalert/alerts/.ipynb_checkpoints/*

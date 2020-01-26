@@ -1,0 +1,21 @@
+name: Example rule 3
+type: any
+index: windows-evtx*
+filter:
+- term:
+    "Event.System.EventID.#text": "4634"
+    
+# Doesn't send an actual alert to outside reciever (i.e. email, slack, or jira)
+alert:
+- command
+command: ["echo", "0"]
+
+## Elastalert isn't really meant to be used on static datasets, 
+## but rahter is designed for live streams of data. To make it 
+## work in our use case, we set a huge buffer_time which makes it 
+## run over a long period of time & realert to 0, so each match
+## in the buffer_time generates its own alert
+buffer_time:
+  weeks: 52
+realert: 
+  minutes: 0

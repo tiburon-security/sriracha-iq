@@ -1,0 +1,10 @@
+es_host: elasticsearch
+es_port: 9200 
+use_ssl: false
+writeback_index: alerts
+rules_folder: /alerts
+buffer_time:
+run_every:
+  minutes: 5
+buffer_time:
+  minutes: 15
