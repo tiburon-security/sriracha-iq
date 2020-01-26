@@ -14,14 +14,18 @@ Fully built leveraging docker-compose, so basic docker-compose proficiency requi
 - Ensure docker daemon & docker-compose installed on system
 - Clone repository to target directory
 - Navigate to target directory
-
+	
+	```
 	docker-compose build
 	docker-compose up -d
-	
+	```
+
 - Verify status of containers, takes about 5 minutes to fully start up required services
 
+	```
 	docker-compose ps
 	docker-compose logs -f
+	```
 
 ## Viewing Data
 
