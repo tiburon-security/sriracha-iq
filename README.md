@@ -7,6 +7,22 @@ This tool was designed with the basic assumption that some central aggregation i
 
 Given this, the project is built in Docker, leveraging docker-compose, facilitating quick environments for building, data ingestion, analysis, and destruction. As a result, security features within Elastic are minimal as the service isn't intended to be public facing nor long running - it is intended to be run on either an analysis workstation or private server with limited access. Again, **do not** expose the Elastic components hosted on this system to neither the open internet nor a corporate/enterprise environment. 
 
+## Quick Start
+
+Fully built leveraging docker-compose, so basic docker-compose proficiency required to utilize this toolkit.
+
+- Ensure docker daemon & docker-compose installed on system
+- Clone repository to target directory
+- Navigate to target directory
+
+	docker-compose build
+	docker-compose up -d
+	
+- Verify status of containers, takes about 5 minutes to fully start up required services
+
+	docker-compose ps
+	docker-compose logs -f
+
 ## Viewing Data
 
 ### Kibana
