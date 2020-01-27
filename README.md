@@ -50,7 +50,7 @@ Application URL:
 For more advanced usage & custom analytics, Jupyter Notebooks have been integrated into the environment. The installation comes with basic elasticsearch libraries included & an example is included. The Jupyter Lab environment is exposed to the docker host over port 8888.
 
 Persistent Notebooks Location (survives docker containers being destroyed):
- - jupyter/notebooks
+ - notebooks
  
 Application URL:
  - https://localhost:8888
@@ -59,7 +59,7 @@ Application URL:
 
 ### ElastAlert
 
-ElastAlert is a project for creating detections in YAML & alerting via a variety of methods including via a Kibana index, email, slack, & Jira. Alert YAML definitions can be created and inserted into ./elastalert/alerts and they will automatically be enabled. They can also be created via Juptyer Lab; the alert folder is automatically mounted. For testing rules, exec into the container (docker-compose exec elastalert /bin/bash) and use the standard elastalert test command (elastalert-test-rule --config /app/config.yml /alerts/example.yml); the alerts folder is mounted to /alert.
+ElastAlert is a project for creating detections in YAML & alerting via a variety of methods including via a Kibana index, email, slack, & Jira. Alert YAML definitions can be created and inserted into ./alerts folder and they will automatically be enabled. They can also be created via Juptyer Lab; the alerts folder is automatically mounted. For testing rules, exec into the container (docker-compose exec elastalert /bin/bash) and use the standard elastalert test command (elastalert-test-rule --config /app/config.yml /alerts/example.yml); the alerts folder is mounted to /alert.
 
 Elastalert isn't really meant to be used on static datasets with older data, but rather is designed for live streams of data. To make it work in our use case, we set a huge buffer_time which makes it run over a long period of time & realert to 0, so each match in the buffer_time generates its own alert:
 
