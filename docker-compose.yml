@@ -4,11 +4,9 @@ services:
 
   elasticsearch:
     build:
-      context: elasticsearch/
+      context: containers/elasticsearch/
       args:
         ELASTIC_VERSION: 7.5.0
-    volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -28,13 +26,10 @@ services:
         
   logstash:
     build:
-      context: logstash/
+      context: containers/logstash/
       args:
         ELASTIC_VERSION: 7.5.0
     volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
-      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
       - ./data-inputs/netflow:/data_inputs/netflow/
     ports:
       - "5000:5000"
@@ -57,11 +52,9 @@ services:
         
   kibana:
     build:
-      context: kibana/
+      context: containers/kibana/
       args:
         ELASTIC_VERSION: 7.5.0
-    volumes:
-      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
       - "80:5601"
     networks:
@@ -79,7 +72,7 @@ services:
         
   evtx-input:
     build:
-      context: input-modules/evtx
+      context: containers/input-modules/evtx
     volumes:
       - ./data-inputs/evtx:/data_inputs/evtx
     restart: on-failure
@@ -95,11 +88,10 @@ services:
                 
   syslog-input:
     build:
-      context: input-modules/syslog
+      context: containers/input-modules/syslog
       args:
         ELASTIC_VERSION: 7.5.0
     volumes:
-      - ./input-modules/syslog/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/syslog:/data_inputs/syslog
       - ./data-inputs/auth:/data_inputs/auth
     networks:
@@ -117,11 +109,10 @@ services:
         
   auditd-input:
     build:
-      context: input-modules/auditd
+      context: containers/input-modules/auditd
       args:
         ELASTIC_VERSION: 7.5.0
     volumes:
-      - ./input-modules/auditd/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/auditd:/data_inputs/auditd
     networks:
       - elk
@@ -138,11 +129,10 @@ services:
         
   nessus-input:
     build:
-      context: input-modules/nessus
+      context: containers/input-modules/nessus
       args:
         ELASTIC_VERSION: 7.5.0
     volumes:
-      - ./input-modules/nessus/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./data-inputs/nessus:/data_inputs/nessus
     restart: on-failure
     networks:
@@ -159,7 +149,7 @@ services:
   
   netflow-input:
     build:
-      context: input-modules/netflow
+      context: containers/input-modules/netflow
     volumes:
       - ./data-inputs/netflow:/data_inputs/netflow
     restart: on-failure
@@ -175,11 +165,11 @@ services:
         
   jupyter:
     build:
-      context: jupyter
+      context: containers/jupyter
     command: start.sh jupyter lab --LabApp.token=''
     volumes:
-      - ./jupyter/notebooks:/home/jovyan/
-      - ./elastalert/alerts:/home/jovyan/alerts
+      - notebooks:/home/jovyan/
+      - alerts:/home/jovyan/alerts
     ports:
       - "8888:8888"
     restart: on-failure
@@ -195,9 +185,9 @@ services:
 
   elastalert:
     build:
-      context: elastalert
+      context: containers/elastalert
     volumes:
-      - ./elastalert/alerts:/alerts
+      - alerts:/alerts
     restart: on-failure
     env_file:
       - ./environment_variables
@@ -213,7 +203,7 @@ services:
         
   input-module-cleanup:
     build:
-      context: input-modules/cleanup
+      context: containers/input-modules/cleanup
     volumes:
       - ./data-inputs:/data_inputs
     restart: on-failure
@@ -230,7 +220,7 @@ services:
   # Short-lived container to set up elastic environment
   setup:
     build:
-      context: setup
+      context: containers/setup
     env_file:
       - ./environment_variables
     networks:
@@ -240,3 +230,18 @@ services:
 networks:
   elk:
     driver: bridge
+    
+volumes:
+  alerts:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/alerts
+      o: bind  
+      
+  notebooks:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/notebooks
+      o: bind
