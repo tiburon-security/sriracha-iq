@@ -36,6 +36,7 @@ Features I'd like to eventually implement:
 - [ ] Demonstrate integration with triage data collection tool, like KAPE. Maybe even write a custom KAPE collection YAML file to include with prject
 - [ ] Plaso Integration?
 - [ ] nmap integration
+- [ ] network config ingest - could be used to find bad settings (i.e. no portsec) and maybe even for rudimentary physical mapping
 
 ## Viewing Data
 
