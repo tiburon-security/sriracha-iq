@@ -35,6 +35,7 @@ Features I'd like to eventually implement:
 	- [ ] Maybe add functionality for marking alerts viewed / acknowledged / completed??
 - [ ] Demonstrate integration with triage data collection tool, like KAPE. Maybe even write a custom KAPE collection YAML file to include with prject
 - [ ] Plaso Integration?
+- [ ] nmap integration
 
 ## Viewing Data
 
