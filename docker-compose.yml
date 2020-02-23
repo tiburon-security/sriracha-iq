@@ -6,7 +6,7 @@ services:
     build:
       context: containers/elasticsearch/
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -28,7 +28,7 @@ services:
     build:
       context: containers/logstash/
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     volumes:
       - ./data-inputs/netflow:/data_inputs/netflow/
     ports:
@@ -54,7 +54,7 @@ services:
     build:
       context: containers/kibana/
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     ports:
       - "80:5601"
     networks:
@@ -90,7 +90,7 @@ services:
     build:
       context: containers/input-modules/syslog
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     volumes:
       - ./data-inputs/syslog:/data_inputs/syslog
       - ./data-inputs/auth:/data_inputs/auth
@@ -111,7 +111,7 @@ services:
     build:
       context: containers/input-modules/auditd
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     volumes:
       - ./data-inputs/auditd:/data_inputs/auditd
     networks:
@@ -131,7 +131,7 @@ services:
     build:
       context: containers/input-modules/nessus
       args:
-        ELASTIC_VERSION: 7.5.0
+        ELASTIC_VERSION: 7.6.0
     volumes:
       - ./data-inputs/nessus:/data_inputs/nessus
     restart: on-failure
