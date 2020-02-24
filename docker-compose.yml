@@ -7,9 +7,6 @@ services:
       context: containers/elasticsearch/
       args:
         ELASTIC_VERSION: 7.6.0
-    ports:
-      - "9200:9200"
-      - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       xpack.security.enabled: "true"
