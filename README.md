@@ -54,7 +54,10 @@ For more advanced usage & custom analytics, Jupyter Notebooks have been integrat
 Persistent Notebooks Location (survives docker containers being destroyed):
  - notebooks
  
-Application URL:
+Accesible via Kibana Plugin:
+![Architecture Diagram](https://raw.githubusercontent.com/tiburon-security/sriracha-iq/master/misc/SrirachaIQ_Kibana_Jupyter.png)
+
+Or directly via the application URL:
  - https://localhost:8888
  
 ## Automating "Badness" Detection

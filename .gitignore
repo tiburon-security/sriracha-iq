@@ -1,3 +1,4 @@
 data-inputs/sample-*
 data-inputs/FILE_AGE.db
-notebooks/.*
+notebooks/\.*
+alerts/\.*
