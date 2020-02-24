@@ -30,7 +30,7 @@ Fully built leveraging docker-compose, so basic docker-compose proficiency requi
 
 Features I'd like to eventually implement:
 
-- [ ] Kibana Plugin Linking to Jupyter Labs
+- [X] Kibana Plugin Linking to Jupyter Labs
 - [ ] Kibana Plugin for viewing ElastaAlerts
 	- [ ] Maybe add functionality for marking alerts viewed / acknowledged / completed??
 - [ ] Demonstrate integration with triage data collection tool, like KAPE. Maybe even write a custom KAPE collection YAML file to include with prject
