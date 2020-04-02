@@ -46,6 +46,14 @@ To use Kibana, access port 80 which is exposed to the docker host. A variety of 
 
 Application URL:
  - http://localhost:80
+ 
+#### Dashboards
+
+The following Kibana dashboards are bundled into the project for viewing and visualization ingested log data.
+
+##### Windows Dashboard
+
+![Kibana Windows Dashboard](https://raw.githubusercontent.com/tiburon-security/sriracha-iq/master/misc/SrirachaIQ_Kibana_Windows_Dashboard.png)
 
 ### Jupyter Lab Notebooks
 
