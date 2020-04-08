@@ -1,4 +1,5 @@
 data-inputs/sample-*
+data-inputs/*/*
 data-inputs/FILE_AGE.db
 notebooks/\.*
 alerts/\.*
