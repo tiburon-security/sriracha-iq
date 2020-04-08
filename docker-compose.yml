@@ -159,6 +159,22 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+
+  network-config-input:
+    build:
+      context: containers/input-modules/network-configs
+    volumes:
+      - ./data-inputs/network-configs:/data_inputs/network-configs
+    restart: on-failure
+    env_file:
+      - ./environment_variables
+    networks:
+      - elk
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"        
         
   jupyter:
     build:
