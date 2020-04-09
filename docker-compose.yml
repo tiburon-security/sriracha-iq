@@ -32,7 +32,7 @@ services:
       - "5000:5000"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+      LS_JAVA_OPTS: "-Xmx2g -Xms2g"
       PYTHONIOENCODING: "UTF-8"
     networks:
       - elk
