@@ -55,6 +55,10 @@ The following Kibana dashboards are bundled into the project for viewing and vis
 
 ![Kibana Windows Dashboard](https://raw.githubusercontent.com/tiburon-security/sriracha-iq/master/misc/SrirachaIQ_Kibana_Windows_Dashboard.png)
 
+##### Nessus Dashboard
+
+![Kibana Nessus Dashboard](https://raw.githubusercontent.com/tiburon-security/sriracha-iq/master/misc/SrirachaIQ_Kibana_Nessus_Dashboard.png)
+
 ### Jupyter Lab Notebooks
 
 For more advanced usage & custom analytics, Jupyter Notebooks have been integrated into the environment. The installation comes with basic elasticsearch libraries included & an example is included. The Jupyter Lab environment is exposed to the docker host over port 8888.
